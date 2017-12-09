@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block navBar %}
+{{ super() }}
+                <li role = "presentation"> logged in as {{username}} </li>
+                <li role="presentation"><a href="/signOut">Log Out</a></li>
+{% endblock %}
+
+
+
+{% block content %}
+{{ super() }}
+<div class="jumbotron">
+     <p>A project that I completed recently is a GUI Calculator using Tkinter. The aim of the project was to move away from entirely command line projects by creating an app in Tkinter.
+   The logic is written in Python, which is by far my strongest language. This website is also coded in Python using the Flask framework.</p>
+   <p>You can download the entire project <a href="/uploads/Calculator.py" download>here</a></p>
+</div>
+{% endblock %}
