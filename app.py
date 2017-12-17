@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, json, send_from_directory, redirect, url_for, session, escape
+from flask import Flask, render_template, request, json, send_from_directory, redirect, url_for, session, escape, Markup
 #from flaskext.mysql import MySql
 from flask_mysqldb import MySQL
 from werkzeug import generate_password_hash, check_password_hash
@@ -37,11 +37,11 @@ def main():
 	
 @app.route('/showSignUp')
 def showSignUp():
-    return render_template('signup.html')
+    return render_template('signupLoggedOut.html')
 	
 @app.route('/showSignIn')
 def showSignIn():
-	return render_template('signin.html')
+	return render_template('signinLoggedOut.html')
 	
 @app.route('/calculator')
 def calculator():
@@ -106,18 +106,20 @@ def signUp():
 
             if len(data) is 0:
                 conn.commit()
-                return json.dumps({'message':'User created successfully !'})
+                return  redirect(url_for('main'))
+				
             else:
-                return json.dumps({'error':str(data[0])})
+                return redirect(url_for('main'))
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
     except Exception as e:
-        return json.dumps({'error':str(e)})
-    finally:
+        print('exception')
+        return redirect(url_for('main'))
+    #finally:
         #cursor.close() 
         #conn.close()
-        return render_template('index.html')
+        #return redirect(url_for(main))
         
 @app.route('/signOut')
 def logout():
@@ -127,39 +129,52 @@ def logout():
 		
 @app.route('/showToDo')
 def showToDo():
-	return render_template('ToDo.html')
+    #when you first load the page you want to check if we're logged in, if not prompt sign in 
+    #once signed in, display the list and also have an entry form to add ot the list
+    if checkLogin():
+        #do something for when logged in:
+        #i probably need to get the values for the database here and then enter them to render template as a variable
+        _email = escape(session['_email'])
+        conn = mysql.connection
+        cursor = conn.cursor()
+        cursor.execute("select item, entry_date from to_do_list where user_username = %s" , [_email]) 
+        list = cursor.fetchall()
+        print(list)
+        listString = '<ul>'
+        for item in list:
+            listString = listString + '<li>' +  str(item[0]) + ',  ' + str(item[1]) + '</li>'
+        listString = listString + '</ul>'
+        listString = Markup(listString)
+        return render_template('toDoLoggedIn.html', username = _email, list = listString)
+    else:
+        #do something for when logged out
+        return render_template('toDoLoggedOut.html')
 	
-@app.route('/toDo', methods = ['GET','POST'])
-def toDo():
+	
+@app.route('/toDoAppend', methods = ['GET','POST'])
+def toDoAppend():
     try:
-        _email = request.form['inputEmail']
-        _password = request.form['inputPassword']
+        _email = escape(session['_email'])
+        _Item = request.form['inputItem']
+        print('received values')
 
         # validate the received values
-        if _email and _password:
+        if _email and _Item:
             conn = mysql.connection
             cursor = conn.cursor()
-            cursor.execute("SELECT user_username FROM tbl_user WHERE user_username = %s AND user_password = %s", [_email, _password])
-            row = cursor.fetchall()
-            if row:
-		        #do something for a successful login here:
-                conn = mysql.connection
-                cursor = conn.cursor()
-                cursor.execute("SELECT entry_date, item FROM to_do_list WHERE user_username = %s", [_email])
-                items = cursor.fetchall()
-                if items:
-                    return 'this is your to do list: {0}'.format(items)
-                else:
-                    return 'error failed to collect your items'
-            else:
-			    #do something for a failed login here, this hsould probably include email already exists, but password is wrong, etc
-                return redirect(url_for('showToDo'))
-				
+		    #append the item to the list here:
+            cursor.execute("INSERT into to_do_list (user_username, item, entry_date) values (%s, %s, NOW());" , [_email , _Item])
+            #cursor.execute("SELECT user_username FROM tbl_user WHERE user_username = %s AND user_password = %s", [_email, _password])
+            print('sql insert attempted')
+            conn.commit()
+            return redirect(url_for('showToDo'))
         else:
 		    #do something for not getting the full request from the webform
-            return redirect(url_for('showSignIn'))
+            return redirect(url_for('showToDo'))
     except Exception as e:
-	    return json.dumps({'error':str(e)})
+        print('exception ')
+        print(e)
+        return redirect(url_for('showToDo'))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block navBar %}
+{{ super() }}
+                <li role = "presentation"> logged in as {{username}} </li>
+                <li role="presentation"><a href="/signOut">Log Out</a></li>
+{% endblock %}
+
+
+
+{% block content %}
+{{ super() }}
+<div class="jumbotron">
+<p> Here is your list:  <br> {{list}}</p>
+      <div class="jumbotron">
+        <h1>Enter a New Item Here</h1>
+        <!-- <form class="form-signin"> -->
+		<form action="/toDoAppend" method="post">
+        
+       <!-- <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>-->
+        
+        <label for="inputItem" class="sr-only">Password</label>
+        <input type="text" name="inputItem" id="inputItem" class="form-control" placeholder="Item" required>
+        
+        <input type="submit" />
+       <!-- <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Sign up</button>-->
+      </form>
+      </div>
+</div>
+{% endblock %}
