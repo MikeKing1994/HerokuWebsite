@@ -26,7 +26,7 @@ def checkLogin():
         return 0
 
 
-@app.route("/")
+@app.route("/", methods = ['GET','POST'])
 def main():
     if checkLogin():
         return render_template('indexLoggedIn.html', username = escape(session['_email']))
