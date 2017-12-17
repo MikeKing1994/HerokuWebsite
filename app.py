@@ -32,7 +32,7 @@ def main():
         return render_template('indexLoggedIn.html', username = escape(session['_email']))
     else:
         print ('You are not logged in')
-        return render_template('indexLoggedOut.html')
+        return render_template('signin.html')
 
 	
 @app.route('/showSignUp')
