@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block navBar %}
+{{ super() }}
+                <li role = "presentation"> logged in as {{username}} </li>
+                <li role="presentation"><a href="/signOut">Log Out</a></li>
+{% endblock %}
+
+
+{%block content %}
+<div class = "row marketing"> 
+	<div class = "col-lg-6"> 
+	<h4><a href="showContent1"> Content 1 </a> </h4>
+	<p> This is a short piece of text describing my first piece of content</p>
+	<h4><a href="showContent3"> Content 3 </a> </h4>
+	<p> This is a short piece of text describing my third piece of content</p>
+	</div>
+	<div class = "col-lg-6"> 
+	<h4><a href="showContent2"> Content 2 </a></h4>
+	<p> This is a short piece of text describing my first piece of content</p>
+	<h4><a href="showContent4"> Content 4 </a></h4>
+	<p> This is a short piece of text describing my third piece of content</p>
+	</div>
+</div>
+
+{% endblock %} 

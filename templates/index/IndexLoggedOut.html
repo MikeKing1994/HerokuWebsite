@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block navBar %}
+{{ super() }}                   
+                <li role="presentation"><a href="/showSignIn">Sign In</a>
+                </li>
+                <li role="presentation"><a href="/showSignUp">Sign Up</a>
+                </li>
+                <li role = "presentation"> logged Out </li> 
+{% endblock %}
+
+{%block signInBlock %}
+{{ super() }}
+<div class="jumbotron">
+    <h1>Welcome to the website of Mike King</h1>
+    <p class="lead"></p>
+    <p><a class="btn btn-lg btn-success" href="showSignUp" role="button">Sign up today</a>
+    <a class="btn btn-lg btn-success" href="showSignIn" role="button">Sign In</a></p>
+</div>
+{% endblock %}
+
+
+{%block content %}
+<div class = "row marketing"> 
+	<div class = "col-lg-6"> 
+	<h4><a href="showContent1"> Content 1 </a> </h4>
+	<p> This is a short piece of text describing my first piece of content</p>
+	<h4><a href="showContent3"> Content 3 </a> </h4>
+	<p> This is a short piece of text describing my third piece of content</p>
+	</div>
+	<div class = "col-lg-6"> 
+	<h4><a href="showContent2"> Content 2 </a></h4>
+	<p> This is a short piece of text describing my first piece of content</p>
+	<h4><a href="showContent4"> Content 4 </a></h4>
+	<p> This is a short piece of text describing my third piece of content</p>
+	</div>
+</div>
+
+{% endblock %} 

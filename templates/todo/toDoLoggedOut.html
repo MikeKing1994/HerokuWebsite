@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block navBar %}
+{{ super() }}                   
+                <li role="presentation"><a href="/showSignIn">Sign In</a>
+                </li>
+                <li role="presentation"><a href="/showSignUp">Sign Up</a>
+                </li>
+                <li role = "presentation"> logged Out </li> 
+{% endblock %}
+
+
+{%block signInBlock %}
+{{ super() }}
+      <div class="jumbotron">
+        <h4>To use this section of the website, you must be logged in:</h4>
+        <!--<form class="form-signin">-->
+		<form action="/signIn" method="post">
+        <!--<label for="inputName" class="sr-only">Name</label>
+        <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Name" required autofocus>-->
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="submit"  value = 'Fetch your to do list!'/>
+        <!--<button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Log in</button>-->
+      </form>
+      </div>
+ {% endblock %}
+       

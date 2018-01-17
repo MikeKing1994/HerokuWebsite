@@ -29,26 +29,26 @@ def checkLogin():
 @app.route("/", methods = ['GET','POST'])
 def main():
     if checkLogin():
-        return render_template('indexLoggedIn.html', username = escape(session['_email']))
+        return render_template('index/indexLoggedIn.html', username = escape(session['_email']))
     else:
         print ('You are not logged in')
-        return render_template('IndexLoggedOut.html')
+        return render_template('index/IndexLoggedOut.html')
 
 	
 @app.route('/showSignUp')
 def showSignUp():
-    return render_template('signupLoggedOut.html')
+    return render_template('signup/signupLoggedOut.html')
 	
 @app.route('/showSignIn')
 def showSignIn():
-	return render_template('signinLoggedOut.html')
+	return render_template('signin/signinLoggedOut.html')
 	
 @app.route('/calculator')
 def calculator():
     if checkLogin():
-        return render_template('calculatorLoggedIn.html', username = escape(session['_email']))
+        return render_template('calculator/calculatorLoggedIn.html', username = escape(session['_email']))
     else:
-        return render_template('calculatorLoggedOut.html')
+        return render_template('calculator/calculatorLoggedOut.html')
 
 
 @app.route('/uploads/<path:filename>')
@@ -145,10 +145,10 @@ def showToDo():
             listString = listString + '<li>' +  str(item[0]) + ',  ' + str(item[1]) + '</li>'
         listString = listString + '</ul>'
         listString = Markup(listString)
-        return render_template('toDoLoggedIn.html', username = _email, list = listString)
+        return render_template('todo/toDoLoggedIn.html', username = _email, list = listString)
     else:
         #do something for when logged out
-        return render_template('toDoLoggedOut.html')
+        return render_template('todo/toDoLoggedOut.html')
 	
 	
 @app.route('/toDoAppend', methods = ['GET','POST'])
