@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block navBar %}
+{{ super() }}                   
+                <li role="presentation"><a href="/showSignIn">Sign In</a>
+                </li>
+                <li role="presentation"><a href="/showSignUp">Sign Up</a>
+                </li>
+                <li role = "presentation"> logged Out </li> 
+{% endblock %}
+
+
+{%block content %}
+<div class = "row marketing"> 
+	<p> Content 1 here </p>
+</div>
+
+{% endblock %} 

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block navBar %}
+{{ super() }}                   
+                <li role="presentation"><a href="/showSignIn">Sign In</a>
+                </li>
+                <li role="presentation"><a href="/showSignUp">Sign Up</a>
+                </li>
+                <li role = "presentation"> logged Out </li> 
+{% endblock %}
+
+
+{%block content %}
+<div class = "row marketing"> 
+	<h3> Validation Testing Page </h3>
+	<div class="container" align='left'>
+        <h5>On this page we'll play with some web form validations, write to a database and then validate subsequent entries on the form against that database entry</h5>
+		<h5>So here are the rules:</h5>
+		<ul><li> Field 1 must be 1 or 0 </li>
+		<li> Field 2 can't be blank</li>
+		<li> Field 3 can't equal Field 1</li></ul>
+        <!--<form class="form-signin">-->
+		<form action="/validate" method="post">
+        <label for="Field1" class="sr-only">Field1</label>
+        <input type="number" name="Field1" id="Field1" class="form-control" placeholder="Field1" pattern ='1|0' autofocus>
+        <label for="Field2" class="sr-only">Field2</label>
+        <input type="text" name="Field2" id="Field2" class="form-control" placeholder="Field2" required autofocus>
+        <label for="Field3" class="sr-only">Field3</label>
+        <input type="text" name="Field3" id="Field3" class="form-control" placeholder="Field3" >
+        <input type="submit"  value = 'Submit Data'/>
+        <!--<button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Log in</button>-->
+      </form>
+      </div>
+	
+</div>
+
+{% endblock %} 

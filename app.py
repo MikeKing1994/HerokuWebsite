@@ -175,7 +175,65 @@ def toDoAppend():
         print('exception ')
         print(e)
         return redirect(url_for('showToDo'))
+		
+@app.route('/showContent1')
+def showContent1():
+	if checkLogin():
+		return render_template('content/showContent1LoggedIn.html')
+	else:
+		return render_template('content/showContent1LoggedOut.html')
+		
+@app.route('/showContent2')
+def showContent2():
+	if checkLogin():
+		return render_template('content/showContent2LoggedIn.html')
+	else:
+		return render_template('content/showContent2LoggedOut.html')
 
+@app.route('/showContent3')
+def showContent3():
+	if checkLogin():
+		return render_template('content/showContent3LoggedIn.html')
+	else:
+		return render_template('content/showContent3LoggedOut.html')
 
+@app.route('/showContent4')
+def showContent4():
+	if checkLogin():
+		return render_template('content/showContent4LoggedIn.html')
+	else:
+		return render_template('content/showContent4LoggedOut.html')
+		
+@app.route('/showValidationTest')
+def showValidationTest():
+	if checkLogin():
+		return render_template('validationTest/ValidateLoggedIn.html')
+	else:
+		return render_template('validationTest/ValidateLoggedOut.html')
+
+		
+def ValidateField1NotEquals1Or0():
+	return
+def ValidateField1EqualsField3():
+	return
+		
+@app.route('/validate', methods = ['GET','POST'])		
+def validate():
+	Field1 = request.form['Field1']
+	Field2 = request.form['Field1']
+	Field3 = request.form['Field1']
+	
+	if Field1 not in [0,1]:
+		ValidateField1NotEquals1Or0()
+	
+	if Field1 == Field3:
+		ValidateField1EqualsField3()
+	else: 
+		print (Field1, Field2,Field3)
+		
+	return render_template('content/showContent1LoggedOut.html')
+		
+		
+		
 if __name__ == "__main__":
     app.run()
