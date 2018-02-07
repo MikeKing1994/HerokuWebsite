@@ -137,15 +137,15 @@ def showToDo():
         _email = escape(session['_email'])
         conn = mysql.connection
         cursor = conn.cursor()
-        cursor.execute("select item, entry_date from to_do_list where user_username = %s" , [_email]) 
+        cursor.execute("select id, item, entry_date from to_do_list where user_username = %s" , [_email]) 
         list = cursor.fetchall()
         print(list)
-        listString = '<ul>'
-        for item in list:
-            listString = listString + '<li>' +  str(item[0]) + ',  ' + str(item[1]) + '</li>'
-        listString = listString + '</ul>'
-        listString = Markup(listString)
-        return render_template('todo/toDoLoggedIn.html', username = _email, list = listString)
+        #listString = '<ul>'
+        #for item in list:
+        #    listString = listString + '<li>' +  str(item[0]) + ',  ' + str(item[1]) + '</li>'
+        #listString = listString + '</ul>'
+        #listString = Markup(listString)
+        return render_template('todo/toDoLoggedIn.html', username = _email, list = list)
     else:
         #do something for when logged out
         return render_template('todo/toDoLoggedOut.html')
@@ -176,6 +176,19 @@ def toDoAppend():
         print(e)
         return redirect(url_for('showToDo'))
 		
+@app.route('/deleteToDoItem', methods = ['GET','POST'])
+def deleteToDoItem():
+	itemId = request.form['delete']
+	conn = mysql.connection
+	cursor = conn.cursor()
+	cursor.execute("delete from to_do_list where id = %s" , [itemId]) 
+	#list = cursor.fetchall()
+	#need to find a way to make sure this can actually get the id from the button
+	conn.commit()
+	return redirect(url_for('showToDo'))	
+
+
+	
 @app.route('/showContent1')
 def showContent1():
 	if checkLogin():
@@ -207,33 +220,48 @@ def showContent4():
 @app.route('/showValidationTest')
 def showValidationTest():
 	if checkLogin():
-		return render_template('validationTest/ValidateLoggedIn.html')
+		return render_template('validationTest/ValidateLoggedIn.html', username = escape(session['_email']))
 	else:
 		return render_template('validationTest/ValidateLoggedOut.html')
 
 		
-def ValidateField1NotEquals1Or0():
-	return
-def ValidateField1EqualsField3():
-	return
-		
 @app.route('/validate', methods = ['GET','POST'])		
 def validate():
 	Field1 = request.form['Field1']
-	Field2 = request.form['Field1']
-	Field3 = request.form['Field1']
+	Field2 = request.form['Field2']
+	Field3 = request.form['Field3']
+	_email = escape(session['_email'])
+	validationList = []
 	
-	if Field1 not in [0,1]:
-		ValidateField1NotEquals1Or0()
-	
+	if Field1 not in ['0','1']:
+		validationList.append('Field 1 must be either 0 or 1')
+	if Field2 is None:
+		validationList.append('Field 2 cannot be left blank')
 	if Field1 == Field3:
-		ValidateField1EqualsField3()
-	else: 
-		print (Field1, Field2,Field3)
+		validationList.append('Field 1 must not be equal to Field 3')
 		
-	return render_template('content/showContent1LoggedOut.html')
+	if validationList ==[]:
+		#insert into database and return to the page
+		conn = mysql.connection
+		cursor = conn.cursor()
+		cursor.execute("insert into validationTest (user_id, DateCreated, Field1, Field2, Field3) values (%s, now(),%s,%s,%s)",[_email,Field1,Field2,Field3])
+		conn.commit()
+		return render_template('validationTest/ValidateLoggedIn.html')
+
+@app.route('/showValidationReport', methods = ['GET','POST'])
+def showValidationReport():
+	if checkLogin():
+		return render_template('validationReport/ValidationReportLoggedIn.html', username = escape(session['_email']))
+	else:
+		return render_template('validationReport/ValidationReportLoggedOut.html')
 		
+@app.route('/validationReport', methods = ['GET','POST'])
+def validationReport():
+	fields = request.form.get('fields')
+	print(fields)
+	return render_template('validationReport/ValidationReportLoggedIn.html', username = escape(session['_email']))
 		
+
 		
 if __name__ == "__main__":
     app.run()

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block navBar %}
+{{ super() }}
+                <li role = "presentation"> logged in as {{username}} </li>
+                <li role="presentation"><a href="/signOut">Log Out</a></li>
+{% endblock %}
+
+
+{%block content %}
+<form action="/validationReport" method="POST">
+  <select name="fields" size="3" multiple>
+    <option value="Field1">Field1</option>
+    <option value="Field2">Field2</option>
+    <option value="Field3">Field3</option>
+  </select>
+  <br><br>
+  <input type="submit">
+</form>
+
+<p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+{% endblock %} 
+
+{%block content2 %}
+{% endblock %}
