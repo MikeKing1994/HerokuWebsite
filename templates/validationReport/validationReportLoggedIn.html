@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block navBar %}
 {{ super() }}
-                <li role = "presentation"> logged in as {{username}} </li>
-                <li role="presentation"><a href="/signOut">Log Out</a></li>
+                <li class="list-inline-item" role="presentation"> logged in as {{username}} </li>
+                <li class="list-inline-item" role="presentation"><a href="/signOut">Log Out</a></li>
 {% endblock %}
 
 
 {%block content %}
-<form action="/validationReport" method="POST">
+<!--<form action="/validationReport" method="POST">
   <select name="fields" size="3" multiple>
     <option value="Field1">Field1</option>
     <option value="Field2">Field2</option>
@@ -16,9 +16,46 @@
   <br><br>
   <input type="submit">
 </form>
+  <form action="/validationReport" method="GET">
+    <div class="checkbox">
+      <label><input type="checkbox" name="Field1" value="Field1">Field 1</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" name="Field2" value="Field2">Field 2</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" name="Field3" value="Field3">Field 3</label>
+	<br>
+	<input type="submit">
+    </div>
+  </form>-->
+<form action="/validationReport" method="POST">
+  <div class="form-group">
+  <label for="selectedList">Select list:</label>
+  <select multiple class="form-control" id="selectedList">
+    <option name="Field1" value="Field1">1</option>
+    <option name="Field2" value="Field2">2</option>
+    <option name="Field3" value="Field3">3</option>
+  </select>
+  	<br>
+	<input type="submit">
+</div>
+</form>
+  
+  <!--<form action="/validationReport" method="post">
+        <label for="Field1" class="sr-only">Field 1</label>
+        <input type="checkbox" name="Field1" id="Field1" class="form-control" placeholder="Field1" >
+        <label for="Field2" class="sr-only">Field 2</label>
+        <input type="checkbox" name="Field2" id="Field2" class="form-control" placeholder="Field2" >
+        <label for="Field3" class="sr-only">Field 3</label>
+        <input type="checkbox" name="Field3" id="Field3" class="form-control" placeholder="Field3" >
+        <input type="submit"  value = 'Submit Data'/>
+        <!--<button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Log in</button>
+      </form> -->
 
 <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
 {% endblock %} 
 
 {%block content2 %}
+
 {% endblock %}

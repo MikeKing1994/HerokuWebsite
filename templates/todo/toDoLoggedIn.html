@@ -2,14 +2,13 @@
 {% block navBar %}
 {{ super() }}
 
-                <li role = "presentation"> logged in as {{username}} </li>
-                <li role="presentation"><a href="/signOut">Log Out</a></li>
+                <li class="list-inline-item" role="presentation"> logged in as {{username}} </li>
+                <li class="list-inline-item" role="presentation"><a href="/signOut">Log Out</a></li>
 {% endblock %}
-
-
 
 {% block content %}
 {{ super() }}
+
 
 <div class="container">
 <p> Here is your list:  <br> </p>
@@ -18,8 +17,8 @@
     <th>Item</th>
     <th>Date Entered</th> 
 	<th></th> 
-
   </tr>
+  
 {% for item in list %}
 <tr><td> {{item[1]}}</td><td> {{item[2]}}</td><td> 
 <form action ="/deleteToDoItem" method ="post">
@@ -28,21 +27,17 @@
 {% endfor %}
 </table>
 </div>
+
 <br>
 	
 <div class="jumbotron">
 <h4>Enter a New Item Here</h4>
-<!-- <form class="form-signin"> -->
 <form action="/toDoAppend" method="post">
-   
-<!-- <label for="inputEmail" class="sr-only">Email address</label>
-<input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>-->
   
 <label for="inputItem" class="sr-only">Password</label>
 <input type="text" name="inputItem" id="inputItem" class="form-control" placeholder="Item" required>
     
 <input type="submit" />
-<!-- <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Sign up</button>-->
 </form>
 </div>
 </div>
