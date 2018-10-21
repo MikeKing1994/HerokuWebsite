@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% block navBar %}
 {{ super() }}
-                <li class="list-inline-item" role="presentation"> logged in as {{username}} </li>
-                <li class="list-inline-item" role="presentation"><a href="/signOut">Log Out</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link disabled" role="button">logged in as {{username}}</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" href="showSignIn" role="button">Log Out</a></li>
 {% endblock %}
 
 

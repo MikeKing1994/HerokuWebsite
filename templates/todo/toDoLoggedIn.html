@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% block navBar %}
 {{ super() }}
 
-                <li class="list-inline-item" role="presentation"> logged in as {{username}} </li>
-                <li class="list-inline-item" role="presentation"><a href="/signOut">Log Out</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link disabled" role="button">logged in as {{username}}</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" href="showSignIn" role="button">Log Out</a></li>
 {% endblock %}
 
 {% block content %}
@@ -29,16 +29,16 @@
 </div>
 
 <br>
+<div class="container">
+	<div style="vertical-align:text-top !important" class="jumbotron">
+	<h4>Enter a New Item Here</h4>
+	<form action="/toDoAppend" method="post">
 	
-<div class="jumbotron">
-<h4>Enter a New Item Here</h4>
-<form action="/toDoAppend" method="post">
-  
-<label for="inputItem" class="sr-only">Password</label>
-<input type="text" name="inputItem" id="inputItem" class="form-control" placeholder="Item" required>
-    
-<input type="submit" />
-</form>
-</div>
+	<label for="inputItem" class="sr-only">Password</label>
+	<input type="text" name="inputItem" id="inputItem" class="form-control" placeholder="Item" required>
+		
+	<input type="submit" />
+	</form>
+	</div>
 </div>
 {% endblock %}

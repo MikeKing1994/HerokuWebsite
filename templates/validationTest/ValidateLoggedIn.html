@@ -1,15 +1,15 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% block navBar %}
 {{ super() }}
-                <li class="list-inline-item" role = "presentation"> logged in as {{username}} </li>
-                <li class="list-inline-item" role="presentation"><a href="/signOut">Log Out</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link disabled" role="button">logged in as {{username}}</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" href="showSignIn" role="button">Log Out</a></li>
 {% endblock %}
 
 
 {%block content %}
 <div class = "row marketing"> 
-	<h3> Validation Testing Page </h3>
 	<div class="container" align='left'>
+		<h3> Validation Testing Page </h3><br>
         <h5>On this page we'll play with some web form validations, write to a database and then validate subsequent entries on the form against that database entry</h5>
 		<h5>So here are the rules:</h5>
 		<ul><li> Field 1 must be 1 or 0 </li>
@@ -26,7 +26,7 @@
         <input type="submit"  value = 'Submit Data'/>
         <!--<button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Log in</button>-->
       </form>
-      </div>
+    </div>
 	
 </div>
 
